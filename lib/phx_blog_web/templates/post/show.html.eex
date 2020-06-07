@@ -1,0 +1,35 @@
+<h1>Show Post</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @post.title %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @post.body %>
+  </li>
+  <li>
+    <strong>Comments:</strong>
+    <%= for comment <- @post.comments do %>
+        <hr />
+        <div>
+        <%= comment.body %>
+        </div>
+        <div>
+        <%= comment.inserted_at %>
+        </div>
+        <div>
+            <span><%= link "Edit", to: Routes.post_comment_path(@conn, :edit, @post, comment) %></span>
+            <span><%= link "Delete", to: Routes.post_comment_path(@conn, :delete, @post, comment), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        </div>
+    <% end %>
+  </li>
+
+</ul>
+
+<span><%= link "New Comment", to: Routes.post_comment_path(@conn, :new, @post) %></span>
+<span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
+<span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
