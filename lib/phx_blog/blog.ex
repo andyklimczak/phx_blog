@@ -18,7 +18,7 @@ defmodule PhxBlog.Blog do
 
   """
   def list_posts do
-    Repo.all(Post) |> Repo.preload(:comments)
+    Repo.all(Post) |> Repo.preload(:comments) |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule PhxBlog.Blog do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id) |> Repo.preload(:comments)
+  def get_post!(id), do: Repo.get!(Post, id) |> Repo.preload([comments: [:user], user: []])
 
   @doc """
   Creates a post.
@@ -50,6 +50,7 @@ defmodule PhxBlog.Blog do
 
   """
   def create_post(attrs \\ %{}) do
+    IO.inspect(attrs)
     %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
@@ -145,8 +146,8 @@ defmodule PhxBlog.Blog do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_comment(post, attrs \\ %{}) do
-    %Comment{post_id: post.id}
+  def create_comment(attrs \\ %{}) do
+    %Comment{}
     |> Comment.changeset(attrs)
     |> Repo.insert()
   end

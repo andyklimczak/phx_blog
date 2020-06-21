@@ -18,7 +18,8 @@ defmodule PhxBlogWeb.CommentController do
 
   def create(conn, %{"post_id" => post_id, "comment" => comment_params}) do
     post = Blog.get_post!(post_id)
-    case Blog.create_comment(post, comment_params) do
+    user = conn.assigns.current_user
+    case Blog.create_comment(Map.merge(comment_params, %{"post_id" => post_id, "user_id" => user.id})) do
       {:ok, comment} ->
         conn
         |> put_flash(:info, "Comment created successfully.")

@@ -11,6 +11,12 @@
     <strong>Body:</strong>
     <%= @post.body %>
   </li>
+
+  <li>
+    <strong>User id:</strong>
+    <%= @post.user.id %>
+  </li>
+
   <li>
     <strong>Comments:</strong>
     <%= for comment <- @post.comments do %>
@@ -22,14 +28,24 @@
         <%= comment.inserted_at %>
         </div>
         <div>
-            <span><%= link "Edit", to: Routes.post_comment_path(@conn, :edit, @post, comment) %></span>
-            <span><%= link "Delete", to: Routes.post_comment_path(@conn, :delete, @post, comment), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <%= comment.inserted_at %>
         </div>
+        <div>
+        User id: <%= comment.user.id %>
+        </div>
+        <%= if comment.user.id == @current_user.id do %>
+            <div>
+                <span><%= link "Edit", to: Routes.post_comment_path(@conn, :edit, @post, comment) %></span>
+                <span><%= link "Delete", to: Routes.post_comment_path(@conn, :delete, @post, comment), method: :delete, data: [confirm: "Are you sure?"] %></span>
+            </div>
+        <% end %>
     <% end %>
   </li>
 
 </ul>
 
 <span><%= link "New Comment", to: Routes.post_comment_path(@conn, :new, @post) %></span>
-<span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
+<%= if @post.user.id == @current_user.id do %>
+    <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
+<% end %>
 <span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
