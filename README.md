@@ -1,5 +1,11 @@
 # PhxBlog
 
+Simple project to test out implmenting:
+
+- DB associations
+- User sign in/signup
+- Live view
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
