@@ -6,7 +6,8 @@ defmodule PhxBlogWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_flash
+    plug :fetch_live_flash
+    plug :put_root_layout, {PhxBlogWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
@@ -19,11 +20,37 @@ defmodule PhxBlogWeb.Router do
   scope "/", PhxBlogWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    resources "/posts", PostController do
+    live "/", PageLive, :index
+    resources "/posts", PostController, except: [:index] do
       resources "/comments", CommentController
     end
+    live "/posts", PostLive.Index
   end
+
+#  scope "/", PhxBlogWeb do
+#    pipe_through :browser
+#
+#    get "/posts/:id", PostController, :show
+#
+#    get "/posts/:post_id/comments", CommentController, :index
+#
+#    live "/posts_live", PostLive.Index
+#  end
+#
+#  scope "/", PhxBlogWeb do
+#    pipe_through [:browser, :require_authenticated_user]
+#
+#    post "/posts", PostController, :create
+#    get "/posts", PostController, :new
+#    get "/posts/:id", PostController, :edit
+#    put "/posts/:id", PostController, :update
+#    delete "/posts/:id", PostController, :delete
+#
+#    post "/posts/:post_id/comments", CommentController, :create
+#    get "/posts/:post_id/comments", CommentController, :new
+#    get "/posts/:post_id/comments/:id", CommentController, :edit
+#    put "/posts/:post_id/comments/:id", CommentController, :update
+#  end
 
   # Other scopes may use custom stacks.
   # scope "/api", PhxBlogWeb do

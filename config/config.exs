@@ -13,10 +13,10 @@ config :phx_blog,
 # Configures the endpoint
 config :phx_blog, PhxBlogWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "ZJrn83mk8KctCuyKksR4uEDD4+CBdoiogoGPavPfpd/k/7xsmO4AjtKahnlfz3j+",
+  secret_key_base: "WMWQQBxNS0ZrcDb6zHMHbST9FveX1o/1cH/V1588TQMKDCU6WpAIHLPSuNAs/iE5",
   render_errors: [view: PhxBlogWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: PhxBlog.PubSub,
-  live_view: [signing_salt: "tjuhsjV5"]
+  live_view: [signing_salt: "5AT7kbAH"]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -7,7 +7,7 @@ defmodule PhxBlogWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_phx_blog_key",
-    signing_salt: "jh+JOYR5"
+    signing_salt: "x22Zyj78"
   ]
 
   socket "/socket", PhxBlogWeb.UserSocket,

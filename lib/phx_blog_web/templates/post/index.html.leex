@@ -1,0 +1,29 @@
+<h1>Listing Posts</h1>
+<h2><%= Enum.count(@posts) %> posts</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Comments</th>
+      <th>User id</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for post <- @posts do %>
+    <tr>
+      <td><%= post.title %></td>
+      <td><%= post.body %></td>
+      <td><%= Enum.count(post.comments) %></td>
+      <td><%= post.user.id %></td>
+      <td>
+        <span><%= live_redirect "Show", to: Routes.post_path(@socket, :show, post) %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+

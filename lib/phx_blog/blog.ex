@@ -54,6 +54,18 @@ defmodule PhxBlog.Blog do
     %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
+    |> broadcast_change([:post, :created])
+  end
+
+  @topic inspect(__MODULE__)
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(PhxBlog.PubSub, @topic)
+  end
+
+  defp broadcast_change({:ok, result}, event) do
+    Phoenix.PubSub.broadcast(PhxBlog.PubSub, @topic, {__MODULE__, event, result})
+    {:ok, result}
   end
 
   @doc """

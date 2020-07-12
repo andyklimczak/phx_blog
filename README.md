@@ -4,6 +4,7 @@ Simple project to test out implmenting:
 
 - DB associations
 - User sign in/signup
+- Require auth endpoints
 - Live view
 
 To start your Phoenix server:
